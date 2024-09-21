@@ -30,3 +30,14 @@ target_include_directories(umgebung-library-opencv PUBLIC
 
 target_link_libraries(umgebung-library-opencv PUBLIC ${OPENCV_LIBRARIES})
 ```
+
+## proposed directory structure
+
+```
+.
+├── CMakeLists.txt
+├── README.md
+├── examples
+├── include
+└── src
+```
