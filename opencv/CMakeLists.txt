@@ -1,8 +1,3 @@
-# umgebung / libraries
-
-@TODO(add a *How to add Libraries* text)
-
-```CMake
 cmake_minimum_required(VERSION 3.12)
 
 project(umgebung-library-opencv)
@@ -29,4 +24,3 @@ target_include_directories(umgebung-library-opencv PUBLIC
 )
 
 target_link_libraries(umgebung-library-opencv PUBLIC ${OPENCV_LIBRARIES})
-```
