@@ -1,5 +1,4 @@
 #include "Umgebung.h"
-#include "Subsystems.h"
 #include "UmgebungImGui.h"
 
 using namespace umgebung;
@@ -29,7 +28,6 @@ void draw() {
     const float y    = height / 2.0f;
     line(x - size, y - size, x + size, y + size);
     line(x - size, y + size, x + size, y - size);
-
 
     imgui_library.begin_frame();
 

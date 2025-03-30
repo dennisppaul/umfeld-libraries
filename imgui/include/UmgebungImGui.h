@@ -30,6 +30,9 @@
 
 namespace umgebung {
 
+    /**
+     * see https://github.com/ocornut/imgui/wiki for Dear ImGui documentation
+     */
     class UmgebungImGui final : public LibraryListener {
     public:
         enum Style {

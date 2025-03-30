@@ -5,7 +5,9 @@ project(umgebung-library-imgui)
 set(IMGUI_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 set(IMGUI_PATH_REPOSITORY "${IMGUI_PATH}/libraries/imgui")
 
-add_library(umgebung-library-imgui STATIC
+add_library(umgebung-library-imgui INTERFACE)
+
+target_sources(umgebung-library-imgui INTERFACE
         ${IMGUI_PATH_REPOSITORY}/imgui.cpp
         ${IMGUI_PATH_REPOSITORY}/imgui_demo.cpp
         ${IMGUI_PATH_REPOSITORY}/imgui_draw.cpp
@@ -19,8 +21,8 @@ add_library(umgebung-library-imgui STATIC
 
 # link libraries
 
-target_link_libraries(umgebung-library-imgui PRIVATE umgebung-lib)
-target_include_directories(umgebung-library-imgui PUBLIC
+target_link_libraries(umgebung-library-imgui INTERFACE umgebung-lib-interface)
+target_include_directories(umgebung-library-imgui INTERFACE
         "${IMGUI_PATH}/include"
         "${IMGUI_PATH_REPOSITORY}"
         "${IMGUI_PATH_REPOSITORY}/backends"
