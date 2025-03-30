@@ -1,0 +1,7 @@
+build/
+cmake-build-debug/
+.idea/
+Brewfile.lock.json
+examples/umgebung-application-bundle/libs/
+cmake-build-debug-event-trace
+.DS_Store
