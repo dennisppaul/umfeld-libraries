@@ -22,7 +22,7 @@ void setup() {
 }
 
 void draw() {
-    background(0.85f);
+    background(clear_color.r, clear_color.g, clear_color.b);
     const float size = 50.0f;
     const float x    = width / 2.0f;
     const float y    = height / 2.0f;
@@ -58,8 +58,8 @@ void draw() {
         ImGui::End();
     }
 
+    if (show_another_window)
     { // from https://github.com/ocornut/imgui/tree/master
-
         // Create a window called "My First Tool", with a menu bar.
         ImGui::Begin("My First Tool", &my_tool_active, ImGuiWindowFlags_MenuBar);
         if (ImGui::BeginMenuBar()) {
@@ -95,4 +95,10 @@ void draw() {
     }
 
     imgui_library.end_frame();
+}
+
+void keyPressed() {
+    if (key == 'd') {
+        show_demo_window = !show_demo_window;
+    }
 }
