@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(minimal)                                                      # set application name
+project(imgui-demo)                                                   # set application name
 set(UMGEBUNG_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../umgebung") # set path to umgebung library
 set(UMGEBUNG_IMGUI_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../")     # set path to umgebung imgui library
 

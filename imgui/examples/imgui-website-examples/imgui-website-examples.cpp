@@ -11,7 +11,7 @@ auto          clear_color         = glm::vec3(0.45f, 0.55f, 0.60f);
 auto          my_color            = glm::vec4(0.45f, 0.55f, 0.60f, 1.0f);
 
 void settings() {
-    size(1024, 768, OPENGL);
+    size(1024, 768);
     register_library(&imgui_library);
     imgui_library.style = UmgebungImGui::Style::LIGHT;
 }
@@ -58,8 +58,7 @@ void draw() {
         ImGui::End();
     }
 
-    if (show_another_window)
-    { // from https://github.com/ocornut/imgui/tree/master
+    if (show_another_window) { // from https://github.com/ocornut/imgui/tree/master
         // Create a window called "My First Tool", with a menu bar.
         ImGui::Begin("My First Tool", &my_tool_active, ImGuiWindowFlags_MenuBar);
         if (ImGui::BeginMenuBar()) {

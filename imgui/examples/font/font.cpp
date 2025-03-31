@@ -10,12 +10,16 @@ void settings() {
     register_library(&imgui_library);
 }
 
+void setup() {
+    imgui_library.load_font(sketchPath() + "../RobotoMono-Regular.ttf", 32);
+}
+
 void draw() {
     background(0.85f);
 
     imgui_library.begin_frame();
 
-    ImGui::Begin("Minimal Example");
+    ImGui::Begin("Loading Custom Font Example");
     ImGui::Text("FPS %.1f", frameRate);
     ImGui::End();
 

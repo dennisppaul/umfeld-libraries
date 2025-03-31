@@ -29,7 +29,6 @@
 #include "imgui_impl_sdlrenderer3.h"
 
 namespace umgebung {
-
     /**
      * see https://github.com/ocornut/imgui/wiki for Dear ImGui documentation
      */
@@ -87,13 +86,15 @@ namespace umgebung {
                     ImGui::StyleColorsDark();
                 } break;
                 case LEO: {
-                    setup_default_style();
+                    setup_leos_style();
                 } break;
                 default:
                     ImGui::StyleColorsClassic();
                     error("Unsupported style");
                     break;
             }
+
+            context_created = true;
         }
 
         void setup_post() override {}
@@ -101,28 +102,44 @@ namespace umgebung {
         void draw_pre() override {}
 
         void draw_post() override {
-            // ImGuiIO& io = ImGui::GetIO();
-            // (void) io;
-            // ImGui::Render();
-            // // glUseProgram(0);
-            // ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-            // // // Update and Render additional Platform Windows
-            // // if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
-            // //     SDL_Window*   backup_current_window  = SDL_GL_GetCurrentWindow();
-            // //     SDL_GLContext backup_current_context = SDL_GL_GetCurrentContext();
-            // //     ImGui::UpdatePlatformWindows();
-            // //     ImGui::RenderPlatformWindowsDefault();
-            // //     SDL_GL_MakeCurrent(backup_current_window, backup_current_context);
-            // // }
+            // // Update and Render additional Platform Windows
+            // if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+            //     SDL_Window*   backup_current_window  = SDL_GL_GetCurrentWindow();
+            //     SDL_GLContext backup_current_context = SDL_GL_GetCurrentContext();
+            //     ImGui::UpdatePlatformWindows();
+            //     ImGui::RenderPlatformWindowsDefault();
+            //     SDL_GL_MakeCurrent(backup_current_window, backup_current_context);
+            // }
         }
 
-        static void begin_frame() {
-            ImGui_ImplOpenGL3_NewFrame();
+        void begin_frame() const {
+            if (native_renderer_type == NOT_INITIALIZED) {
+                return;
+            }
+
+            switch (native_renderer_type) {
+                case OPENGL_2_0: {
+                    ImGui_ImplOpenGL2_NewFrame();
+                } break;
+                case OPENGL_3_3: {
+                    ImGui_ImplOpenGL3_NewFrame();
+                } break;
+                case SDL_2D: {
+                    // NOTE nothing to do
+                } break;
+                default:
+                    error("Unsupported renderer type");
+                    break;
+            }
+
             ImGui_ImplSDL3_NewFrame();
             ImGui::NewFrame();
         }
 
         void end_frame() const {
+            if (native_renderer_type == NOT_INITIALIZED) {
+                return;
+            }
             ImGui::Render();
             switch (native_renderer_type) {
                 case OPENGL_2_0: {
@@ -152,6 +169,23 @@ namespace umgebung {
             }
         }
 
+        void set_handle_events_in_loop(const bool handle_events_in_loop) {
+            this->handle_events_in_loop = handle_events_in_loop;
+        }
+
+        void load_font(const std::string& font_file_path, const float size = 13.0f) const {
+            if (!context_created) {
+                error("ImGUi context not created. only load fonts in setup() or after setup() has finished.");
+                return;
+            }
+            if (!exists(font_file_path)) {
+                error("Font file does not exist: %s", font_file_path.c_str());
+                return;
+            }
+            const ImGuiIO& io = ImGui::GetIO();
+            io.Fonts->AddFontFromFileTTF(font_file_path.c_str(), size, nullptr, io.Fonts->GetGlyphRangesDefault());
+        }
+
         void shutdown() override {
             switch (native_renderer_type) {
                 case OPENGL_2_0: {
@@ -171,15 +205,12 @@ namespace umgebung {
             ImGui::DestroyContext();
         }
 
-        void set_handle_events_in_loop(const bool handle_events_in_loop) {
-            this->handle_events_in_loop = handle_events_in_loop;
-        }
-
     private:
-        bool handle_events_in_loop = true;
-        int  native_renderer_type{DEFAULT};
+        bool handle_events_in_loop{true};
+        bool context_created{false};
+        int  native_renderer_type{NOT_INITIALIZED};
 
-        static void setup_default_style() {
+        static void setup_leos_style() {
             auto& colors               = ImGui::GetStyle().Colors;
             colors[ImGuiCol_WindowBg]  = ImVec4{0.1f, 0.1f, 0.13f, 1.0f};
             colors[ImGuiCol_MenuBarBg] = ImVec4{0.16f, 0.16f, 0.21f, 1.0f};
@@ -255,5 +286,89 @@ namespace umgebung {
             style.PopupRounding     = 4;
             style.ChildRounding     = 4;
         }
+
+        // TODO add multiple windows
+        // #include <SDL3/SDL.h>
+        // #include <SDL3/SDL_opengl.h>
+        // #include "imgui.h"
+        // #include "backends/imgui_impl_sdl3.h"
+        // #include "backends/imgui_impl_opengl3.h"
+        //
+        // SDL_Window* win1;
+        // SDL_Window* win2;
+        // SDL_GLContext ctx1;
+        // SDL_GLContext ctx2;
+        // ImGuiContext* imgui1;
+        // ImGuiContext* imgui2;
+        //
+        // void RenderWindow(SDL_Window* window, SDL_GLContext gl_ctx, ImGuiContext* imgui_ctx, const char* label) {
+        //     SDL_GL_MakeCurrent(window, gl_ctx);
+        //     ImGui::SetCurrentContext(imgui_ctx);
+        //
+        //     ImGui_ImplOpenGL3_NewFrame();
+        //     ImGui_ImplSDL3_NewFrame();
+        //     ImGui::NewFrame();
+        //
+        //     ImGui::Begin(label);
+        //     ImGui::Text("This is %s", label);
+        //     ImGui::End();
+        //
+        //     ImGui::Render();
+        //     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        //     SDL_GL_SwapWindow(window);
+        // }
+        //
+        // int main(int, char**) {
+        //     SDL_Init(SDL_INIT_VIDEO);
+        //     SDL_SetHint(SDL_HINT_OPENGL_PROFILE_MASK, "core");
+        //     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+        //     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+        //
+        //     win1 = SDL_CreateWindow("Window 1", 100, 100, 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+        //     ctx1 = SDL_GL_CreateContext(win1);
+        //
+        //     win2 = SDL_CreateWindow("Window 2", 200, 200, 640, 480, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+        //     ctx2 = SDL_GL_CreateContext(win2);
+        //
+        //     SDL_GL_MakeCurrent(win1, ctx1);
+        //     gladLoadGL();  // or your OpenGL loader
+        //
+        //     // Setup ImGui for window 1
+        //     imgui1 = ImGui::CreateContext();
+        //     ImGui::SetCurrentContext(imgui1);
+        //     ImGui_ImplSDL3_InitForOpenGL(win1, ctx1);
+        //     ImGui_ImplOpenGL3_Init("#version 330");
+        //
+        //     // Setup ImGui for window 2
+        //     imgui2 = ImGui::CreateContext();
+        //     ImGui::SetCurrentContext(imgui2);
+        //     ImGui_ImplSDL3_InitForOpenGL(win2, ctx2);
+        //     ImGui_ImplOpenGL3_Init("#version 330");
+        //
+        //     bool running = true;
+        //     SDL_Event event;
+        //     while (running) {
+        //         while (SDL_PollEvent(&event)) {
+        //             if (event.type == SDL_EVENT_QUIT) running = false;
+        //             ImGui_ImplSDL3_ProcessEvent(&event);
+        //         }
+        //
+        //         RenderWindow(win1, ctx1, imgui1, "Window 1");
+        //         RenderWindow(win2, ctx2, imgui2, "Window 2");
+        //     }
+        //
+        //     // Cleanup
+        //     ImGui_ImplOpenGL3_Shutdown();
+        //     ImGui_ImplSDL3_Shutdown();
+        //     ImGui::DestroyContext(imgui2);
+        //     ImGui::DestroyContext(imgui1);
+        //
+        //     SDL_GL_DeleteContext(ctx2);
+        //     SDL_GL_DeleteContext(ctx1);
+        //     SDL_DestroyWindow(win2);
+        //     SDL_DestroyWindow(win1);
+        //     SDL_Quit();
+        //     return 0;
+        // }
     };
 } // namespace umgebung

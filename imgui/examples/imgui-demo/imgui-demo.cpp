@@ -14,10 +14,6 @@ void draw() {
     background(0.85f);
 
     imgui_library.begin_frame();
-
-    ImGui::Begin("Minimal Example");
-    ImGui::Text("FPS %.1f", frameRate);
-    ImGui::End();
-
+    ImGui::ShowDemoWindow();
     imgui_library.end_frame();
 }
