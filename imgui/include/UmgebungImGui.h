@@ -99,6 +99,8 @@ namespace umgebung {
 
         void setup_post() override {}
 
+        void update_loop() override {}
+
         void draw_pre() override {}
 
         void draw_post() override {
@@ -163,7 +165,7 @@ namespace umgebung {
             }
         }
 
-        void event_loop(SDL_Event* event) override {
+        void event_in_update_loop(SDL_Event* event) override {
             if (handle_events_in_loop) {
                 ImGui_ImplSDL3_ProcessEvent(event);
             }
