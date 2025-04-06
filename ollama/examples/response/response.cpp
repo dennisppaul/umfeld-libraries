@@ -18,7 +18,7 @@ void setup() {
     noStroke();
     fill(0);
 
-    ollama.set_URL("https://models.hfk-bremen.de");
+    ollama.set_URL("http://localhost:11434");
 
     const std::vector<std::string> models = ollama.get_installed_models();
     console("Installed Model: ");
