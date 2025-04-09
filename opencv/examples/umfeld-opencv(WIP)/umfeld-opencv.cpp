@@ -1,9 +1,9 @@
-#include "Umgebung.h"
-#include "UmgebungOpenCV.h"
+#include "Umfeld.h"
+#include "UmfeldOpenCV.h"
 
-using namespace umgebung;
+using namespace umfeld;
 
-class UmgebungApp : public PApplet {
+class UmfeldApp : public PApplet {
 
     PFont*                 mFont{};
 
@@ -32,6 +32,6 @@ class UmgebungApp : public PApplet {
     }
 };
 
-PApplet* umgebung::instance() {
-    return new UmgebungApp();
+PApplet* umfeld::instance() {
+    return new UmfeldApp();
 }

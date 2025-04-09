@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.12)
 
 project(imgui-demo)                                                   # set application name
-set(UMGEBUNG_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../umgebung") # set path to umgebung library
-set(UMGEBUNG_IMGUI_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../")     # set path to umgebung imgui library
+set(UMFELD_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../umfeld") # set path to umfeld library
+set(UMFELD_IMGUI_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../")     # set path to umfeld imgui library
 
 # --- no need to change anything below this line ------------------------------
 
@@ -13,10 +13,10 @@ include_directories(".")
 file(GLOB SOURCE_FILES "*.cpp")
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
-add_subdirectory(${UMGEBUNG_PATH} ${CMAKE_BINARY_DIR}/umgebung-lib-${PROJECT_NAME})
-add_umgebung_libs()
+add_subdirectory(${UMFELD_PATH} ${CMAKE_BINARY_DIR}/umfeld-lib-${PROJECT_NAME})
+add_umfeld_libs()
 
 # --- add imgui library -------------------------------------------------------
 
-add_subdirectory(${UMGEBUNG_IMGUI_LIB_PATH} ${CMAKE_BINARY_DIR}/umgebung-imgui-${PROJECT_NAME})
-target_link_libraries(${PROJECT_NAME} PRIVATE umgebung-library-imgui)
+add_subdirectory(${UMFELD_IMGUI_LIB_PATH} ${CMAKE_BINARY_DIR}/umfeld-imgui-${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} PRIVATE umfeld-library-imgui)

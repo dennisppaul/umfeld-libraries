@@ -1,11 +1,11 @@
-# umgebung / library / Dear ImGui
+# umfeld / library / Dear ImGui
 
-to use *Dear ImGui* in *Umgebung* include the library header and create an instance:
+to use *Dear ImGui* in *Umfeld* include the library header and create an instance:
 
 ```c
-#include "UmgebungImGui.h"
+#include "UmfeldImGui.h"
 
-UmgebungImGui imgui_library;
+UmfeldImGui imgui_library;
 ```
 
 register the library in `settings()`:
@@ -22,7 +22,7 @@ configure the library in `setup()` ( e.g loading fonts or setting styles ):
 ```c
 void setup() {
     imgui_library.load_font(sketchPath() + "../RobotoMono-Regular.ttf", 32);
-    imgui_library.style = UmgebungImGui::Style::LEO;
+    imgui_library.style = UmfeldImGui::Style::LEO;
 }
 ```
 

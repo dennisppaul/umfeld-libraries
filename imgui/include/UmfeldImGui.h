@@ -1,7 +1,7 @@
 /*
- * Umgebung
+ * Umfeld
  *
- * This file is part of the *Umgebung* library (https://github.com/dennisppaul/umgebung).
+ * This file is part of the *Umfeld* library (https://github.com/dennisppaul/umfeld).
  * Copyright (c) 2025 Dennis P Paul.
  *
  * This library is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include "Umgebung.h"
+#include "Umfeld.h"
 #include "Subsystems.h"
 
 #include "imgui.h"
@@ -28,11 +28,11 @@
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdlrenderer3.h"
 
-namespace umgebung {
+namespace umfeld {
     /**
      * see https://github.com/ocornut/imgui/wiki for Dear ImGui documentation
      */
-    class UmgebungImGui final : public LibraryListener {
+    class UmfeldImGui final : public LibraryListener {
     public:
         enum Style {
             LIGHT,
@@ -373,4 +373,4 @@ namespace umgebung {
         //     return 0;
         // }
     };
-} // namespace umgebung
+} // namespace umfeld

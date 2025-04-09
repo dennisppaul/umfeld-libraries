@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(umgebung-library-opencv)
+project(umfeld-library-opencv)
 
 ## OpenCV
 
@@ -11,16 +11,16 @@ message(STATUS "OpenCV Libraries: ${OPENCV_LIBRARIES}")
 
 ## library
 
-file(GLOB UMGEBUNG_OPENCV_SOURCE_FILES
+file(GLOB UMFELD_OPENCV_SOURCE_FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
 )
 
-add_library(umgebung-library-opencv STATIC ${UMGEBUNG_OPENCV_SOURCE_FILES})
-# add_library(umgebung-library-opencv INTERFACE ${UMGEBUNG_OPENCV_SOURCE_FILES}) # use `INTERFACE` if *header-only* library
+add_library(umfeld-library-opencv STATIC ${UMFELD_OPENCV_SOURCE_FILES})
+# add_library(umfeld-library-opencv INTERFACE ${UMFELD_OPENCV_SOURCE_FILES}) # use `INTERFACE` if *header-only* library
 
-target_include_directories(umgebung-library-opencv PUBLIC
+target_include_directories(umfeld-library-opencv PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
         ${OPENCV_INCLUDE_DIRS}
 )
 
-target_link_libraries(umgebung-library-opencv PUBLIC ${OPENCV_LIBRARIES})
+target_link_libraries(umfeld-library-opencv PUBLIC ${OPENCV_LIBRARIES})

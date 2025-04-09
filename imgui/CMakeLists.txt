@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(umgebung-library-imgui)
+project(umfeld-library-imgui)
 
 set(IMGUI_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 set(IMGUI_PATH_REPOSITORY "${IMGUI_PATH}/libraries/imgui")
 
-add_library(umgebung-library-imgui INTERFACE)
+add_library(umfeld-library-imgui INTERFACE)
 
-target_sources(umgebung-library-imgui INTERFACE
+target_sources(umfeld-library-imgui INTERFACE
         ${IMGUI_PATH_REPOSITORY}/imgui.cpp
         ${IMGUI_PATH_REPOSITORY}/imgui_demo.cpp
         ${IMGUI_PATH_REPOSITORY}/imgui_draw.cpp
@@ -21,8 +21,8 @@ target_sources(umgebung-library-imgui INTERFACE
 
 # link libraries
 
-target_link_libraries(umgebung-library-imgui INTERFACE umgebung-lib-interface)
-target_include_directories(umgebung-library-imgui INTERFACE
+target_link_libraries(umfeld-library-imgui INTERFACE umfeld-lib-interface)
+target_include_directories(umfeld-library-imgui INTERFACE
         "${IMGUI_PATH}/include"
         "${IMGUI_PATH_REPOSITORY}"
         "${IMGUI_PATH_REPOSITORY}/backends"

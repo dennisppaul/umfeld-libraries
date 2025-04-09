@@ -1,7 +1,7 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
-#include "UmgebungOpenCV.h"
+#include "UmfeldOpenCV.h"
 
 void foobar() {
     std::cout << "hello world" << std::endl;

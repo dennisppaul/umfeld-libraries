@@ -1,6 +1,6 @@
-# umgebung / libraries
+# umfeld / libraries
 
-libraries extend the core functionality of *Umgebung*.
+libraries extend the core functionality of *Umfeld*.
 
 ## adding library to application
 
@@ -8,14 +8,14 @@ to add a library usually only the following lines need to be added at the end of
 
 ```CMake
 ...
-add_subdirectory("/absolute/path/to/library/folder" ${CMAKE_BINARY_DIR}/some-umgebung-library-${PROJECT_NAME})
-target_link_libraries(${PROJECT_NAME} PRIVATE some-umgebung-library)
+add_subdirectory("/absolute/path/to/library/folder" ${CMAKE_BINARY_DIR}/some-umfeld-library-${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} PRIVATE some-umfeld-library)
 ```
 
 BONUS TIP: to make things a bit cleaner it is advised to add a variable with library path at the *top* of the script:
 
 ```CMake
-set(UMGEBUNG_IMGUI_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../")     # set path to umgebung imgui library
+set(UMFELD_IMGUI_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../")     # set path to umfeld imgui library
 ...
 ```
 
@@ -23,8 +23,8 @@ and then later add the library:
 
 ```CMake
 ...
-add_subdirectory(${UMGEBUNG_IMGUI_LIB_PATH} ${CMAKE_BINARY_DIR}/some-umgebung-library-${PROJECT_NAME})
-target_link_libraries(${PROJECT_NAME} PRIVATE some-umgebung-library)
+add_subdirectory(${UMFELD_IMGUI_LIB_PATH} ${CMAKE_BINARY_DIR}/some-umfeld-library-${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} PRIVATE some-umfeld-library)
 
 ```
 
@@ -34,8 +34,8 @@ a typical script for an application including the imgui library may look like th
 cmake_minimum_required(VERSION 3.12)
 
 project(my-application)                                               # set application name
-set(UMGEBUNG_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../umgebung") # set path to umgebung library
-set(UMGEBUNG_IMGUI_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../")     # set path to umgebung imgui library
+set(UMFELD_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../umfeld") # set path to umfeld library
+set(UMFELD_IMGUI_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../")     # set path to umfeld imgui library
 
 # --- no need to change anything below this line ------------------------------
 
@@ -46,16 +46,16 @@ include_directories(".")
 file(GLOB SOURCE_FILES "*.cpp")
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
-add_subdirectory(${UMGEBUNG_PATH} ${CMAKE_BINARY_DIR}/umgebung-lib-${PROJECT_NAME})
-add_umgebung_libs()
+add_subdirectory(${UMFELD_PATH} ${CMAKE_BINARY_DIR}/umfeld-lib-${PROJECT_NAME})
+add_umfeld_libs()
 
 # --- add imgui library -------------------------------------------------------
 
-add_subdirectory(${UMGEBUNG_IMGUI_LIB_PATH} ${CMAKE_BINARY_DIR}/umgebung-imgui-${PROJECT_NAME})
-target_link_libraries(${PROJECT_NAME} PRIVATE umgebung-library-imgui)
+add_subdirectory(${UMFELD_IMGUI_LIB_PATH} ${CMAKE_BINARY_DIR}/umfeld-imgui-${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} PRIVATE umfeld-library-imgui)
 ```
 
-BONUS TIP: the second argument of `add_subdirectory()` can be any folder and is used by CMake when building. the third argument of `target_link_libraries()` denotes the library’s name and needs to be exactly the same as the name given in the library’s CMake script. usually iy is `umgebung-library-` and then the name of the library e.g `umgebung-library-imgui`.
+BONUS TIP: the second argument of `add_subdirectory()` can be any folder and is used by CMake when building. the third argument of `target_link_libraries()` denotes the library’s name and needs to be exactly the same as the name given in the library’s CMake script. usually iy is `umfeld-library-` and then the name of the library e.g `umfeld-library-imgui`.
 
 ## typical library directory structure
 
@@ -70,18 +70,18 @@ BONUS TIP: the second argument of `add_subdirectory()` can be any folder and is 
 
 ## how to use a library
 
-by default libraries only need to be instantiated and then registered in the *Umgebung* environment ( ideally in `settings()` ) with `register_library()`:
+by default libraries only need to be instantiated and then registered in the *Umfeld* environment ( ideally in `settings()` ) with `register_library()`:
 
 a typical library use case could look like this:
 
 
 ```c
-#include "Umgebung.h"  
-#include "UmgebungSomeLibrary.h"  
+#include "Umfeld.h"  
+#include "UmfeldSomeLibrary.h"  
   
-using namespace umgebung;  
+using namespace umfeld;  
   
-UmgebungSomeLibrary some_library;  
+UmfeldSomeLibrary some_library;  
   
 void settings() {  
     size(1024, 768);  
@@ -107,7 +107,7 @@ void draw() {
 
 ## how to write a library
 
-*Umgebung* supplies a light weight mechanism for integrating libraries into the application logic. libraries are classes that implement the *interface* `LibraryListener` which includes the following methods:
+*Umfeld* supplies a light weight mechanism for integrating libraries into the application logic. libraries are classes that implement the *interface* `LibraryListener` which includes the following methods:
 
 ```c
 setup_pre()                  
@@ -119,7 +119,7 @@ event_loop(SDL_Event* event)
 shutdown()
 ```
 
-an instance of a library can be registered and unregistered in *Umgebung* with the following methods:
+an instance of a library can be registered and unregistered in *Umfeld* with the following methods:
 
 ```c
 register_library(LibraryListener* listener);

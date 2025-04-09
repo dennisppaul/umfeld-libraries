@@ -1,9 +1,9 @@
-#include "Umgebung.h"
-#include "UmgebungImGui.h"
+#include "Umfeld.h"
+#include "UmfeldImGui.h"
 
-using namespace umgebung;
+using namespace umfeld;
 
-UmgebungImGui imgui_library;
+UmfeldImGui imgui_library;
 bool          show_demo_window    = false;
 bool          show_another_window = false;
 bool          my_tool_active      = true;
@@ -13,7 +13,7 @@ auto          my_color            = glm::vec4(0.45f, 0.55f, 0.60f, 1.0f);
 void settings() {
     size(1024, 768);
     register_library(&imgui_library);
-    imgui_library.style = UmgebungImGui::Style::LIGHT;
+    imgui_library.style = UmfeldImGui::Style::LIGHT;
 }
 
 void setup() {

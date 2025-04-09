@@ -1,9 +1,9 @@
-#include "Umgebung.h"
-#include "UmgebungImGui.h"
+#include "Umfeld.h"
+#include "UmfeldImGui.h"
 
-using namespace umgebung;
+using namespace umfeld;
 
-UmgebungImGui imgui_library;
+UmfeldImGui imgui_library;
 
 void settings() {
     size(1024, 768);

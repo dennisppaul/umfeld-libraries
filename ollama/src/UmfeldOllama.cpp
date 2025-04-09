@@ -1,7 +1,7 @@
 /*
- * Umgebung
+ * Umfeld
  *
- * This file is part of the *Umgebung* library (https://github.com/dennisppaul/umgebung).
+ * This file is part of the *Umfeld* library (https://github.com/dennisppaul/umfeld).
  * Copyright (c) 2025 Dennis P Paul.
  *
  * This library is free software: you can redistribute it and/or modify
@@ -24,12 +24,12 @@
 
 #include <nlohmann/json.hpp>
 
-#include "Umgebung.h"
-#include "UmgebungOllama.h"
+#include "Umfeld.h"
+#include "UmfeldOllama.h"
 
-using namespace umgebung;
+using namespace umfeld;
 
-size_t UmgebungOllama::StreamWriteCallback(char* ptr, size_t size, size_t nmemb, void* userdata) {
+size_t UmfeldOllama::StreamWriteCallback(char* ptr, size_t size, size_t nmemb, void* userdata) {
     size_t totalSize = size * nmemb;
     auto*  context   = static_cast<StreamContext*>(userdata);
 
@@ -57,7 +57,7 @@ size_t UmgebungOllama::StreamWriteCallback(char* ptr, size_t size, size_t nmemb,
     return totalSize;
 }
 
-void UmgebungOllama::generate_stream(const std::string& prompt, std::function<void(const std::string&)> on_chunk) {
+void UmfeldOllama::generate_stream(const std::string& prompt, std::function<void(const std::string&)> on_chunk) {
     CURL* curl = curl_easy_init();
     if (!curl) {
         return;
@@ -85,7 +85,7 @@ void UmgebungOllama::generate_stream(const std::string& prompt, std::function<vo
 }
 
 
-std::vector<std::string> UmgebungOllama::get_installed_models() {
+std::vector<std::string> UmfeldOllama::get_installed_models() {
     std::vector<std::string> models;
     CURL*                    curl = curl_easy_init();
     if (!curl) {
@@ -127,7 +127,7 @@ std::vector<std::string> UmgebungOllama::get_installed_models() {
     return models;
 }
 
-std::string UmgebungOllama::extract_response_text(const std::string& raw_response) {
+std::string UmfeldOllama::extract_response_text(const std::string& raw_response) {
     std::stringstream ss(raw_response);
     std::string       line;
     std::string       result;
@@ -149,7 +149,7 @@ std::string UmgebungOllama::extract_response_text(const std::string& raw_respons
     return result;
 }
 
-std::string UmgebungOllama::generate(const std::string& prompt) {
+std::string UmfeldOllama::generate(const std::string& prompt) {
     CURL* curl = curl_easy_init();
     if (!curl) {
         return "Curl init failed";

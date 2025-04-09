@@ -1,17 +1,17 @@
-# umgebung / library / OpenCV
+# umfeld / library / OpenCV
 
 install OpenCV `@version(4.10.0)` with homebrew `brew install opencv` ( to test installation run `opencv_version` in terminal )
 
 include library in application CMake file with:
 
 ```CMake
-set(OPENCV_UMGEBUNG_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../umgebung-libraries/opencv") # path to this library
+set(OPENCV_UMFELD_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../umfeld-libraries/opencv") # path to this library
 
-add_subdirectory(${OPENCV_UMGEBUNG_PATH}
-        ${CMAKE_BINARY_DIR}/umgebung-opencv-${PROJECT_NAME} # can be any path to a directory
+add_subdirectory(${OPENCV_UMFELD_PATH}
+        ${CMAKE_BINARY_DIR}/umfeld-opencv-${PROJECT_NAME} # can be any path to a directory
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE umgebung-library-opencv) # link library to project
+target_link_libraries(${PROJECT_NAME} PRIVATE umfeld-library-opencv) # link library to project
 ```
 
 ## optionally embed *Info.plist* on macOS to allow camera access

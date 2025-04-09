@@ -1,11 +1,11 @@
 // TODO this is more like a proof of concept ;)
 
-#include "Umgebung.h"
-#include "UmgebungOllama.h"
+#include "Umfeld.h"
+#include "UmfeldOllama.h"
 
-using namespace umgebung;
+using namespace umfeld;
 
-UmgebungOllama ollama;
+UmfeldOllama ollama;
 std::string    querry = "Hello, how are you?";
 std::string    response;
 

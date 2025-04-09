@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(umgebung-opencv)                                                                   # set application name
-set(UMGEBUNG_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../umgebung")                         # set path to umgebung library e.g `set(UMGEBUNG_PATH "<absolute/path/to/library>")`
-set(OPENCV_UMGEBUNG_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../umgebung-libraries/opencv") # set path to umgebung-opencv library
+project(umfeld-opencv)                                                                   # set application name
+set(UMFELD_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../umfeld")                         # set path to umfeld library e.g `set(UMFELD_PATH "<absolute/path/to/library>")`
+set(OPENCV_UMFELD_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../umfeld-libraries/opencv") # set path to umfeld-opencv library
 link_directories("/usr/local/lib")                                                         # optional, can help to fix issues with Homebrew on macOS
 
-# set compiler flags to C++17 ( minimum required by umgebung, needs to go before `add_executable` )
+# set compiler flags to C++17 ( minimum required by umfeld, needs to go before `add_executable` )
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -17,18 +17,18 @@ file(GLOB SOURCE_FILES "*.cpp")
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 include_directories(".")
 
-# add umgebung
+# add umfeld
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE UMGEBUNG_WINDOW_TITLE="${PROJECT_NAME}") # set window title
-add_subdirectory(${UMGEBUNG_PATH} ${CMAKE_BINARY_DIR}/umgebung-lib-${PROJECT_NAME})
-add_umgebung_libs()
+target_compile_definitions(${PROJECT_NAME} PRIVATE UMFELD_WINDOW_TITLE="${PROJECT_NAME}") # set window title
+add_subdirectory(${UMFELD_PATH} ${CMAKE_BINARY_DIR}/umfeld-lib-${PROJECT_NAME})
+add_umfeld_libs()
 
-# add umgebung-opencv
+# add umfeld-opencv
 
-add_subdirectory(${OPENCV_UMGEBUNG_PATH}
-        ${CMAKE_BINARY_DIR}/umgebung-opencv-${PROJECT_NAME}
+add_subdirectory(${OPENCV_UMFELD_PATH}
+        ${CMAKE_BINARY_DIR}/umfeld-opencv-${PROJECT_NAME}
 )
-target_link_libraries(${PROJECT_NAME} PRIVATE umgebung-library-opencv)
+target_link_libraries(${PROJECT_NAME} PRIVATE umfeld-library-opencv)
 
 # embed Info.plist if on macOS to allow camera access
 if (APPLE)
