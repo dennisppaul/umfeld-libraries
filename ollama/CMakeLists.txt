@@ -13,7 +13,13 @@ target_sources(umfeld-library-ollama INTERFACE
 # add curl
 
 find_package(CURL REQUIRED)
-target_link_libraries(umfeld-library-ollama INTERFACE CURL::libcurl)
+target_link_libraries(umfeld-library-ollama INTERFACE
+    CURL::libcurl
+    umfeld-lib-interface
+)
+
+message(STATUS "CURL_INCLUDE_DIRS: ${CURL_INCLUDE_DIRS}")
+message(STATUS "CURL_LIBRARIES   : ${CURL_LIBRARIES}")
 
 # link libraries
 

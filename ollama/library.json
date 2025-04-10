@@ -1,0 +1,21 @@
+{
+  "name": "Umfeld Ollama",
+  "keywords": "LLM",
+  "description": "simple adapter for Ollama’s web API",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/dennisppaul/umfeld-libraries.git"
+  },
+  "version": "0.1.0",
+  "frameworks": "arduino",
+  "platforms": ["umfeld"],
+  "authors" :
+  [
+     {
+       "name":"Dennis P Paul",
+       "maintainer": true
+     }
+  ],
+  "headers": "UmfeldOllama.h"
+}
