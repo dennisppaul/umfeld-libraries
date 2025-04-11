@@ -18,9 +18,6 @@ target_link_libraries(umfeld-library-ollama INTERFACE
     umfeld-lib-interface
 )
 
-message(STATUS "CURL_INCLUDE_DIRS: ${CURL_INCLUDE_DIRS}")
-message(STATUS "CURL_LIBRARIES   : ${CURL_LIBRARIES}")
-
 # link libraries
 
 target_link_libraries(umfeld-library-ollama INTERFACE umfeld-lib-interface)
