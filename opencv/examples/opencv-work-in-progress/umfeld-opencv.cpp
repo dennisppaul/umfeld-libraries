@@ -1,44 +1,11 @@
-#include <iostream>
-#include <opencv2/opencv.hpp>
-
+#include "Umfeld.h"
 #include "UmfeldOpenCV.h"
 
-void test_capture_frame() {
-    std::cout << "test_capture_frame" << std::endl;
+using namespace umfeld;
 
-    // Initialize OpenCV VideoCapture to use the default camera
-    cv::VideoCapture cap(0);
-    if (!cap.isOpened()) {
-        std::cerr << "Failed to open the camera." << std::endl;
-        return;
-    }
+#include <opencv2/opencv.hpp>
 
-    // Capture a frame from the camera
-    cv::Mat frame;
-    cap >> frame; // Equivalent to cap.read(frame);
-
-    if (frame.empty()) {
-        printf("Failed to capture frame.\n");
-        return;
-    }
-
-    // Convert the frame from BGR (OpenCV default) to RGB
-    cv::Mat frameRGB;
-    cv::cvtColor(frame, frameRGB, cv::COLOR_BGR2RGB);
-    cv::Mat frameRGBA;
-    cv::cvtColor(frame, frameRGBA, cv::COLOR_BGR2RGBA);
-
-    // Get the frame dimensions
-    const int width  = frameRGB.cols;
-    const int height = frameRGB.rows;
-    uint8_t*  pixels = frameRGB.data;
-
-    std::cout << "Frame dimensions: " << width << "x" << height << std::endl;
-
-    cap.release();
-}
-
-int test_retrieve_contour() {
+int test_retrieve_contour_inline() {
     // Open the default camera (usually the first camera connected)
     cv::VideoCapture cap(0);
     if (!cap.isOpened()) {
@@ -94,4 +61,27 @@ int test_retrieve_contour() {
     cv::destroyAllWindows();
 
     return 0;
+}
+
+
+void settings() {
+    size(1024, 768);
+}
+
+void setup() {
+    test_capture_frame();
+}
+
+void draw() {
+    background(1);
+    fill(0);
+    noStroke();
+}
+
+void mousePressed() {
+    test_retrieve_contour();
+}
+
+void keyPressed() {
+    test_retrieve_contour_inline();
 }

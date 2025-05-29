@@ -2,25 +2,52 @@ cmake_minimum_required(VERSION 3.12)
 
 project(umfeld-library-opencv)
 
-## OpenCV
+set(OPENCV_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 
-find_package(PkgConfig REQUIRED)
-pkg_search_module(OPENCV REQUIRED opencv4)
-message(STATUS "OpenCV Include Dirs: ${OPENCV_INCLUDE_DIRS}")
-message(STATUS "OpenCV Libraries: ${OPENCV_LIBRARIES}")
+add_library(umfeld-library-opencv INTERFACE)
 
-## library
-
-file(GLOB UMFELD_OPENCV_SOURCE_FILES
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+target_sources(umfeld-library-opencv INTERFACE
+        ${OPENCV_PATH}/src/UmfeldOpenCV.cpp
 )
 
-add_library(umfeld-library-opencv STATIC ${UMFELD_OPENCV_SOURCE_FILES})
-# add_library(umfeld-library-opencv INTERFACE ${UMFELD_OPENCV_SOURCE_FILES}) # use `INTERFACE` if *header-only* library
+# add opencv
 
-target_include_directories(umfeld-library-opencv PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
-        ${OPENCV_INCLUDE_DIRS}
+find_package(OpenCV REQUIRED)
+target_link_libraries(umfeld-library-opencv INTERFACE
+        ${OpenCV_LIBS}
+        umfeld-lib-interface
 )
+#find_package(PkgConfig REQUIRED)
+#pkg_search_module(OPENCV REQUIRED opencv4)
+#message(STATUS "OpenCV Include Dirs: ${OPENCV_INCLUDE_DIRS}")
+#message(STATUS "OpenCV Libraries: ${OPENCV_LIBRARIES}")
+#target_link_libraries(umfeld-library-opencv INTERFACE
+#        ${OPENCV_LIBRARIES}
+#        umfeld-lib-interface
+#)
 
-target_link_libraries(umfeld-library-opencv PUBLIC ${OPENCV_LIBRARIES})
+# link libraries
+
+target_link_libraries(umfeld-library-opencv INTERFACE umfeld-lib-interface)
+target_include_directories(umfeld-library-opencv INTERFACE
+        "${OPENCV_PATH}/src"
+)
+#target_include_directories(umfeld-library-opencv INTERFACE
+#        "${OPENCV_PATH}/src"
+#        "${OPENCV_INCLUDE_DIRS}"
+#)
+
+# embed Info.plist if on macOS to allow camera access
+
+if (APPLE)
+    # Specify the path to your Info.plist file
+    set(INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/Info.plist")
+
+    # Ensure the Info.plist file exists
+    if (EXISTS "${INFO_PLIST}")
+        message(STATUS "adding Info.plist at ${INFO_PLIST}")
+        target_link_options(${PROJECT_NAME} INTERFACE "SHELL:-sectcreate __TEXT __info_plist ${INFO_PLIST}")
+    else ()
+        message(FATAL_ERROR "Info.plist not found at ${INFO_PLIST}")
+    endif ()
+endif ()

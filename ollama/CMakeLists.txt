@@ -7,15 +7,15 @@ set(OLLAMA_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 add_library(umfeld-library-ollama INTERFACE)
 
 target_sources(umfeld-library-ollama INTERFACE
-    ${OLLAMA_PATH}/src/UmfeldOllama.cpp
+        ${OLLAMA_PATH}/src/UmfeldOllama.cpp
 )
 
 # add curl
 
 find_package(CURL REQUIRED)
 target_link_libraries(umfeld-library-ollama INTERFACE
-    CURL::libcurl
-    umfeld-lib-interface
+        CURL::libcurl
+        umfeld-lib-interface
 )
 
 # link libraries
