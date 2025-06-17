@@ -1,3 +1,6 @@
 [submodule "imgui/libraries/imgui"]
 	path = imgui/libraries/imgui
 	url = https://github.com/ocornut/imgui.git
+[submodule "daisysp/libraries/daisysp"]
+	path = daisysp/libraries/daisysp
+	url = https://github.com/electro-smith/DaisySP.git

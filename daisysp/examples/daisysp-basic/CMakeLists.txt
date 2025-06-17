@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(response)                                                 # set application name
+project(daisysp-basic)                                            # set application name
 set(UMFELD_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../umfeld") # set path to umfeld library
-set(UMFELD_OLLAMA_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../")  # set path to umfeld ollama library
+set(UMFELD_DAISYSP_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../") # set path to umfeld daisysp library
 
 # --- no need to change anything below this line ------------------
 
@@ -16,7 +16,7 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 add_subdirectory(${UMFELD_PATH} ${CMAKE_BINARY_DIR}/umfeld-lib-${PROJECT_NAME})
 add_umfeld_libs()
 
-# --- add ollama library ------------------------------------------
+# --- add daisysp library -----------------------------------------
 
-add_subdirectory(${UMFELD_OLLAMA_LIB_PATH} ${CMAKE_BINARY_DIR}/umfeld-ollama-${PROJECT_NAME})
-target_link_libraries(${PROJECT_NAME} PRIVATE umfeld-library-ollama)
+add_subdirectory(${UMFELD_DAISYSP_LIB_PATH} ${CMAKE_BINARY_DIR}/umfeld-daisysp-${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} PRIVATE umfeld-library-daisysp)

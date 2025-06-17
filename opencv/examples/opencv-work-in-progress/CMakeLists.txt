@@ -16,7 +16,7 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 add_subdirectory(${UMFELD_PATH} ${CMAKE_BINARY_DIR}/umfeld-lib-${PROJECT_NAME})
 add_umfeld_libs()
 
-# --- add opencv library ------------------------------------------------------
+# --- add opencv library ------------------------------------------
 
 add_subdirectory(${UMFELD_OPENCV_LIB_PATH} ${CMAKE_BINARY_DIR}/umfeld-opencv-${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME} PRIVATE umfeld-library-opencv)

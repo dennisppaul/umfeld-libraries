@@ -54,16 +54,16 @@ namespace umfeld {
             native_renderer_type = get_native_renderer_type();
             // Setup Platform/Renderer backends
             switch (native_renderer_type) {
-                case OPENGL_2_0: {
+                case RENDERER_OPENGL_2_0: {
                     ImGui_ImplSDL3_InitForOpenGL(get_window(), get_native_renderer());
                     ImGui_ImplOpenGL2_Init();
                 } break;
-                case OPENGL_3_3: {
+                case RENDERER_OPENGL_3_3_CORE: {
                     ImGui_ImplSDL3_InitForOpenGL(get_window(), get_native_renderer());
                     const auto glsl_version = "#version 150";
                     ImGui_ImplOpenGL3_Init(glsl_version);
                 } break;
-                case SDL_2D: {
+                case RENDERER_SDL_2D: {
                     // TODO totally untested
                     ImGui_ImplSDL3_InitForSDLRenderer(get_window(), static_cast<SDL_Renderer*>(get_native_renderer()));
                     ImGui_ImplSDLRenderer3_Init(static_cast<SDL_Renderer*>(get_native_renderer()));
@@ -120,13 +120,13 @@ namespace umfeld {
             }
 
             switch (native_renderer_type) {
-                case OPENGL_2_0: {
+                case RENDERER_OPENGL_2_0: {
                     ImGui_ImplOpenGL2_NewFrame();
                 } break;
-                case OPENGL_3_3: {
+                case RENDERER_OPENGL_3_3_CORE: {
                     ImGui_ImplOpenGL3_NewFrame();
                 } break;
-                case SDL_2D: {
+                case RENDERER_SDL_2D: {
                     // NOTE nothing to do
                 } break;
                 default:
@@ -144,13 +144,13 @@ namespace umfeld {
             }
             ImGui::Render();
             switch (native_renderer_type) {
-                case OPENGL_2_0: {
+                case RENDERER_OPENGL_2_0: {
                     ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
                 } break;
-                case OPENGL_3_3: {
+                case RENDERER_OPENGL_3_3_CORE: {
                     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
                 } break;
-                case SDL_2D: {
+                case RENDERER_SDL_2D: {
                     ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData(), static_cast<SDL_Renderer*>(get_native_renderer()));
                 } break;
                 default:
@@ -180,7 +180,7 @@ namespace umfeld {
                 error("ImGUi context not created. only load fonts in setup() or after setup() has finished.");
                 return;
             }
-            if (!exists(font_file_path)) {
+            if (!file_exists(font_file_path)) {
                 error("Font file does not exist: %s", font_file_path.c_str());
                 return;
             }
@@ -190,13 +190,13 @@ namespace umfeld {
 
         void shutdown() override {
             switch (native_renderer_type) {
-                case OPENGL_2_0: {
+                case RENDERER_OPENGL_2_0: {
                     ImGui_ImplOpenGL2_Shutdown();
                 } break;
-                case OPENGL_3_3: {
+                case RENDERER_OPENGL_3_3_CORE: {
                     ImGui_ImplOpenGL3_Shutdown();
                 } break;
-                case SDL_2D: {
+                case RENDERER_SDL_2D: {
                     error("TODO shutdown SDL_2D imgui?");
                 } break;
                 default:
