@@ -1,8 +1,14 @@
-# umfeld / libraries
+# Umfeld / Libraries
 
-libraries extend the core functionality of *Umfeld*.
+a collection of libraries that extend the core functionality of *Umfeld*.
 
-## adding library to application
+the repository needs to be cloned with submodules:
+
+```sh
+git clone --recurse-submodules https://github.com/dennisppaul/umfeld-libraries.git
+```
+
+## Adding Library to Application
 
 to add a library usually only the following lines need to be added at the end of the application’s CMake script ( `CMakeLists.txt` ):
 
@@ -25,7 +31,6 @@ and then later add the library:
 ...
 add_subdirectory(${UMFELD_IMGUI_LIB_PATH} ${CMAKE_BINARY_DIR}/some-umfeld-library-${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME} PRIVATE some-umfeld-library)
-
 ```
 
 a typical script for an application including the imgui library may look like this:
@@ -33,11 +38,11 @@ a typical script for an application including the imgui library may look like th
 ```CMake
 cmake_minimum_required(VERSION 3.12)
 
-project(my-application)                                               # set application name
+project(my-application)                                           # set application name
 set(UMFELD_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../umfeld") # set path to umfeld library
-set(UMFELD_IMGUI_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../")     # set path to umfeld imgui library
+set(UMFELD_IMGUI_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../")   # set path to umfeld imgui library
 
-# --- no need to change anything below this line ------------------------------
+# --- no need to change anything below this line ------------------
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -57,7 +62,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE umfeld-library-imgui)
 
 BONUS TIP: the second argument of `add_subdirectory()` can be any folder and is used by CMake when building. the third argument of `target_link_libraries()` denotes the library’s name and needs to be exactly the same as the name given in the library’s CMake script. usually iy is `umfeld-library-` and then the name of the library e.g `umfeld-library-imgui`.
 
-## typical library directory structure
+## Typical Library Directory Structure
 
 ```
 .
@@ -68,12 +73,9 @@ BONUS TIP: the second argument of `add_subdirectory()` can be any folder and is 
 └── src
 ```
 
-## how to use a library
+## How to Use a Library
 
-by default libraries only need to be instantiated and then registered in the *Umfeld* environment ( ideally in `settings()` ) with `register_library()`:
-
-a typical library use case could look like this:
-
+libraries may need to be instantiated and then registered in the *Umfeld* environment ( ideally in `settings()` ) with `register_library()`. this allows the library to receive system event ( e.g key and mouse inputs ). a typical library use case could look like this:
 
 ```c
 #include "Umfeld.h"  
@@ -105,13 +107,14 @@ void draw() {
 }
 ```
 
-## how to write a library
+## How to Write a Library
 
 *Umfeld* supplies a light weight mechanism for integrating libraries into the application logic. libraries are classes that implement the *interface* `LibraryListener` which includes the following methods:
 
 ```c
 setup_pre()                  
-setup_post()                 
+setup_post()
+update_loop()
 draw_pre()                   
 draw_post()                  
 event(SDL_Event* event)
