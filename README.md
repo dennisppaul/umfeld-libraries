@@ -1,6 +1,6 @@
-# Umfeld / Libraries
+# Umfeld Libraries
 
-a collection of libraries that extend the core functionality of *Umfeld*.
+a collection of libraries that extend the core functionality of [Umfeld](https://github.com/dennisppaul/umfeld) environemnt.
 
 the repository needs to be cloned with submodules:
 
