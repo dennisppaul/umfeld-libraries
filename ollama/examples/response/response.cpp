@@ -21,7 +21,7 @@ void setup() {
     ollama.set_URL("http://localhost:11434");
 
     const std::vector<std::string> models = ollama.get_installed_models();
-    console("Installed Model: ");
+    console("Installed Models: ");
     for (const auto& model: models) {
         console(model);
     }

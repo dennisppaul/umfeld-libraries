@@ -1,4 +1,4 @@
-# umfeld / library / Dear ImGui
+# Umfeld / Library / Dear ImGui
 
 to use *Dear ImGui* in *Umfeld* include the library header and create an instance:
 
@@ -43,3 +43,14 @@ void draw() {
 ```
 
 for more information on how to actually use *Dear ImGui* itself, see the documentation e.g at https://github.com/ocornut/imgui or https://github.com/ocornut/imgui/wiki for Dear ImGui documentation or run the demo window example ( i.e `imgui-demo` ).
+
+## Include Library
+
+to include the library, add the following lines to your application’s CMake script:
+
+```cmake
+set(UMFELD_IMGUI_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../")   # set path to umfeld imgui library
+
+add_subdirectory(${UMFELD_IMGUI_LIB_PATH} ${CMAKE_BINARY_DIR}/umfeld-imgui-${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} PRIVATE umfeld-library-imgui)
+```
