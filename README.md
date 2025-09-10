@@ -1,4 +1,4 @@
-a collection of libraries that extend the core functionality of [umfeld](https://github.com/dennisppaul/umfeld) environemnt.
+a collection of libraries that extend the core functionality of [umfeld](https://github.com/dennisppaul/umfeld) environment.
 
 the repository needs to be cloned with submodules:
 
