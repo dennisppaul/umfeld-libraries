@@ -12,11 +12,11 @@ auto          my_color            = glm::vec4(0.45f, 0.55f, 0.60f, 1.0f);
 
 void settings() {
     size(1024, 768);
-    register_library(&imgui_library);
-    imgui_library.style = UmfeldImGui::Style::LIGHT;
 }
 
 void setup() {
+    imgui_library.style = UmfeldImGui::Style::LIGHT;
+    register_library(&imgui_library);
     noFill();
     stroke(1.0f, 0.25f, 0.35f);
 }

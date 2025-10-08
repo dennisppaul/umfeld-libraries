@@ -42,7 +42,9 @@ namespace umfeld {
 
         Style style{LIGHT};
 
-        void setup_pre() override {
+        void setup_pre() override {}
+
+        void setup_post() override {
             // Setup Dear ImGui context
             IMGUI_CHECKVERSION();
             ImGui::CreateContext();
@@ -58,9 +60,15 @@ namespace umfeld {
                     ImGui_ImplSDL3_InitForOpenGL(get_window(), get_native_renderer());
                     ImGui_ImplOpenGL2_Init();
                 } break;
+                case RENDERER_OPENGL_ES_3_0:
+                {
+                    ImGui_ImplSDL3_InitForOpenGL(get_window(), get_native_renderer());
+                    const auto glsl_version = "#version 300 es";
+                    ImGui_ImplOpenGL3_Init(glsl_version);
+                } break;
                 case RENDERER_OPENGL_3_3_CORE: {
                     ImGui_ImplSDL3_InitForOpenGL(get_window(), get_native_renderer());
-                    const auto glsl_version = "#version 150";
+                    const auto glsl_version = "#version 330";
                     ImGui_ImplOpenGL3_Init(glsl_version);
                 } break;
                 case RENDERER_SDL_2D: {
@@ -97,8 +105,6 @@ namespace umfeld {
             context_created = true;
         }
 
-        void setup_post() override {}
-
         void update_loop() override {}
 
         void draw_pre() override {}
@@ -123,6 +129,7 @@ namespace umfeld {
                 case RENDERER_OPENGL_2_0: {
                     ImGui_ImplOpenGL2_NewFrame();
                 } break;
+                case RENDERER_OPENGL_ES_3_0:
                 case RENDERER_OPENGL_3_3_CORE: {
                     ImGui_ImplOpenGL3_NewFrame();
                 } break;
@@ -147,6 +154,7 @@ namespace umfeld {
                 case RENDERER_OPENGL_2_0: {
                     ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
                 } break;
+                case RENDERER_OPENGL_ES_3_0:
                 case RENDERER_OPENGL_3_3_CORE: {
                     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
                 } break;
@@ -193,6 +201,7 @@ namespace umfeld {
                 case RENDERER_OPENGL_2_0: {
                     ImGui_ImplOpenGL2_Shutdown();
                 } break;
+                case RENDERER_OPENGL_ES_3_0:
                 case RENDERER_OPENGL_3_3_CORE: {
                     ImGui_ImplOpenGL3_Shutdown();
                 } break;

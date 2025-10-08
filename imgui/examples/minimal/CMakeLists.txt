@@ -13,6 +13,11 @@ include_directories(".")
 file(GLOB SOURCE_FILES "*.cpp")
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
+# enable OpenGL ES 3.0 support on macOS via ANGLE
+#option(ENABLE_ANGLE "Enable ANGLE OpenGL ES emulation on macOS ( apple silicon )" OFF) # if on macOS, use ANGLE to get OpenGL ES support via Metal
+#target_compile_definitions(${PROJECT_NAME} PRIVATE IMGUI_IMPL_OPENGL_ES3)
+#set(UMFELD_OPENGL_VERSION "OPENGL_ES_3_0")
+
 add_subdirectory(${UMFELD_PATH} ${CMAKE_BINARY_DIR}/umfeld-lib-${PROJECT_NAME})
 add_umfeld_libs()
 
