@@ -24,3 +24,5 @@ target_link_libraries(umfeld-library-gpio-linux INTERFACE
     libgpiod::gpiod
     umfeld-lib-interface
 )
+
+# requires `gpiod` and `libgpiod-dev` to be installed with `sudo apt install gpiod libgpiod-dev`
