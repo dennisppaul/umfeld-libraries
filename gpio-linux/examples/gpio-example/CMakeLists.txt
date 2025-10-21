@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 
 project(gpio-example)                                                 # set application name
 set(UMFELD_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../umfeld")     # set path to umfeld library
-#set(UMFELD_GPIO_LINUX_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../") # set path to umfeld gpio linux library
+set(UMFELD_GPIO_LINUX_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../")  # set path to umfeld gpio linux library
 
 # --------- no need to change anything below this line ---------
 
@@ -22,5 +22,5 @@ add_umfeld_libs()
 
 # ---------  add library ---------------------------------------
 
-#add_subdirectory(${UMFELD_GPIO_LINUX_LIB_PATH} ${CMAKE_BINARY_DIR}/umfeld-library-gpio-linux-${PROJECT_NAME})
-#target_link_libraries(${PROJECT_NAME} PRIVATE umfeld-library-gpio-linux)
+add_subdirectory(${UMFELD_GPIO_LINUX_LIB_PATH} ${CMAKE_BINARY_DIR}/umfeld-library-gpio-linux-${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} PRIVATE umfeld-library-gpio-linux)

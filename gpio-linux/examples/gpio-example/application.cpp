@@ -1,4 +1,5 @@
 #include "Umfeld.h"
+#include "gpio-linux.h"
 
 using namespace umfeld;
 
@@ -9,6 +10,7 @@ void settings() {
 void setup() {
     noFill();
     stroke(1.0f, 0.25f, 0.35f);
+    pinMode(17, OUTPUT);
 }
 
 void draw() {
@@ -18,4 +20,11 @@ void draw() {
     const float y    = height / 2.0f;
     line(x - size, y - size, x + size, y + size);
     line(x - size, y + size, x + size, y - size);
+
+    if (frameCount % 120 == 0) {
+        digitalWrite(17, true);
+    }
+    if (frameCount % 120 == 60) {
+        digitalWrite(17, false);
+    }
 }

@@ -18,5 +18,3 @@
  */
 
 #include "gpio-linux.h"
-
-void gpio_foobar() {}
