@@ -3,28 +3,37 @@
 
 using namespace umfeld;
 
+bool is_led_on    = false;
+const int led_id  = GPIO_2;
+
 void settings() {
     size(1024, 768);
 }
 
 void setup() {
-    noFill();
-    stroke(1.0f, 0.25f, 0.35f);
-    pinMode(17, OUTPUT);
+    noStroke();
+    pinMode(led_id, OUTPUT);
 }
 
 void draw() {
     background(0.85f);
-    const float size = 50.0f;
-    const float x    = width / 2.0f;
-    const float y    = height / 2.0f;
-    line(x - size, y - size, x + size, y + size);
-    line(x - size, y + size, x + size, y - size);
+    const float size = 100.0;
+    const float x    = width / 2.0;
+    const float y    = height / 2.0;
+
+    if (is_led_on) {
+        fill(1, 0.25, 0.35);
+    } else {
+        fill(0.2, 0.2, 0.2);
+    }
+    circle(x, y, size);
 
     if (frameCount % 120 == 0) {
-        digitalWrite(17, true);
+        digitalWrite(led_id, true);
+        is_led_on = true;
     }
     if (frameCount % 120 == 60) {
-        digitalWrite(17, false);
+        digitalWrite(led_id, false);
+        is_led_on = false;
     }
 }

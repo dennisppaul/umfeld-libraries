@@ -34,6 +34,7 @@ enum PinMode {
 namespace umfeld {
 
     constexpr unsigned GPIO_2_SDA1       = 2;
+    constexpr unsigned GPIO_2            = 2;
     constexpr unsigned GPIO_3_SCL1       = 3;
     constexpr unsigned GPIO_4            = 4;
     constexpr unsigned GPIO_5            = 5;
