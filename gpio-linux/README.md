@@ -89,3 +89,13 @@ constexpr unsigned GPIO_1_ID_SC         = 1;
 ## RPI 400 + RPI 4 GPIO Pinout Diagram
 
 ![](Raspberry-pi-4-pinout.jpg)
+
+## Serial ( UART )
+
+serial communication can be used as *normal* linux communication. just make sure to enable UART set `enable_uart=1` in `/boot/firmware/config.txt` and use it with the Umfeld `Serial` class e.g:
+
+```c
+Serial port("/dev/serial0", 115200);
+port.write("hello\n");
+std::string line = port.readLine();
+```
