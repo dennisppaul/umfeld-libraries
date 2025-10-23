@@ -26,7 +26,7 @@ void setup() {
         console(model);
     }
 
-    ollama.set_model("llama3.2:latest");
+    ollama.set_model("deepseek-r1:8b");
     response = ollama.generate(querry);
 }
 
