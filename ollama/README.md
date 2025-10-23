@@ -2,11 +2,9 @@
 
 ## Prepare
 
-install ollama `@version(macOS, latest)`:
-
-* on *macOS*: use homebrew `brew install ollama`
-* on *Linux*: use apt `curl -fsSL https://ollama.com/install.sh | sh`
-* on *Windows ( MSYS2 UCRT64 )*: Ollama is not officially supported under MSYS2. use the native Windows installer from [ollama.com](https://ollama.com) or run ollama in WSL2.
+- on *macOS*: use homebrew `brew install ollama`
+- on *Linux*: use apt `curl -fsSL https://ollama.com/install.sh | sh`
+- on *Windows ( MSYS2 UCRT64 )*: Ollama is not officially supported under MSYS2. use the native Windows installer from [ollama.com](https://ollama.com) or run ollama in WSL2.
 
 to test the installation, run `ollama run llama2` in the terminal ( this downloads and starts a test model ).
 
