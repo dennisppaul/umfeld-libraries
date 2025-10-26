@@ -1,3 +1,9 @@
+@TODO(clean up documentation)
+
+install `gpiod` with `sudo apt install gpiod libgpiod-dev`.
+
+## GPIO Pin Map
+
 | Physical Pin | BCM | Name / Function     |
 |:------------ |:--- |:------------------- |
 | 1            | —   | 3.3 V Power         |
