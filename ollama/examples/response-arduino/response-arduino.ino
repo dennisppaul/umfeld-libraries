@@ -6,8 +6,8 @@
 using namespace umfeld;
 
 UmfeldOllama ollama;
-std::string    querry = "Hello, how are you?";
-std::string    response;
+std::string  querry = "Hello, how are you?";
+std::string  response;
 
 void settings() {
     size(1024, 768);
@@ -21,9 +21,9 @@ void setup() {
     ollama.set_URL("http://localhost:11434");
 
     const std::vector<std::string> models = ollama.get_installed_models();
-    console("Installed Model: ");
+    println("Installed Model: ");
     for (const auto& model: models) {
-        console(model);
+        println(model);
     }
 
     ollama.set_model("deepseek-r1:8b");

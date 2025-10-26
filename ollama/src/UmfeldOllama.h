@@ -25,7 +25,7 @@ namespace umfeld {
     class UmfeldOllama {
     public:
         std::string              generate(const std::string& prompt);
-        std::vector<std::string> get_installed_models();
+        std::vector<std::string> get_installed_models() const;
 
         void set_model(const std::string& new_model) {
             model = new_model;

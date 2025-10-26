@@ -85,7 +85,7 @@ void UmfeldOllama::generate_stream(const std::string& prompt, std::function<void
 }
 
 
-std::vector<std::string> UmfeldOllama::get_installed_models() {
+std::vector<std::string> UmfeldOllama::get_installed_models() const {
     std::vector<std::string> models;
     CURL*                    curl = curl_easy_init();
     if (!curl) {
