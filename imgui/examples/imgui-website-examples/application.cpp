@@ -15,6 +15,7 @@ void settings() {
 }
 
 void setup() {
+    colorMode(RGB, 1.0, 1.0, 1.0, 1.0);
     imgui_library.style = UmfeldImGui::Style::LIGHT;
     register_library(&imgui_library);
     noFill();

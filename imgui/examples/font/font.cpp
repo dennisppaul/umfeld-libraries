@@ -11,6 +11,7 @@ void settings() {
 }
 
 void setup() {
+    colorMode(RGB, 1.0, 1.0, 1.0, 1.0);
     imgui_library.load_font(sketchPath() + "../RobotoMono-Regular.ttf", 32);
 }
 

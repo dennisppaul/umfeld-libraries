@@ -14,6 +14,7 @@ void settings() {
 }
 
 void setup() {
+    colorMode(RGB, 1.0, 1.0, 1.0, 1.0);
     osc.Init(audio_sample_rate);
     lfo.Init(audio_sample_rate);
     lfo.SetAmp(.8f);

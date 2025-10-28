@@ -10,6 +10,7 @@ void settings() {
 }
 
 void setup() {
+    colorMode(RGB, 1.0, 1.0, 1.0, 1.0);
     register_library(&imgui_library);
 }
 
